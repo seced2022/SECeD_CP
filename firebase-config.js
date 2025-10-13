@@ -1,9 +1,1 @@
-// Configuración de Firebase (rellena con tu proyecto real)
-window.FIREBASE_CONFIG = window.FIREBASE_CONFIG || {
-  apiKey: "REEMPLAZA_AQUI",
-  authDomain: "REEMPLAZA_AQUI.firebaseapp.com",
-  projectId: "REEMPLAZA_AQUI",
-};
-
-// Clave SOLO para abrir Auditoría
-window.AUDIT_KEY = "26238915";
+window.FIREBASE_CONFIG={apiKey:"AIzaSyDYRNhYISTXpHt_jK8dpT7aDUQskV_ZzuE",authDomain:"secedcp.firebaseapp.com",projectId:"secedcp",storageBucket:"secedcp.firebasestorage.app",messagingSenderId:"722200684437",appId:"1:722200684437:web:f8486e13dd6ec0bdaaf89c",measurementId:"G-XB0C93FM9W"};window.AUDIT_KEY="26238915";
