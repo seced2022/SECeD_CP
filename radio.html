@@ -1,1 +1,92 @@
-<!DOCTYPE html><html><head><meta charset='utf-8'><link rel='stylesheet' href='styles.css'><title>SECeD - Radio</title></head><body><main class='app'><div class='brand'><img src='logo.svg' class='brand-logo' onerror="this.src='logo.png'"/></div><h1>SECeD - Radio</h1><div class='clock-bar'><div class='clock'><span id='clockTime'>--:--:--</span><span class='tz' id='clockTz'>Europe/Madrid</span><span class='sync' id='clockSync'>sincronizando…</span></div></div><section class='radio-wrap'><div id='radioCard' class='radio-card pending'><div id='radioNumber' class='radio-number'>—</div><div id='radioStatus' class='radio-status'>Esperando número…</div></div><small id='radioMeta' style='opacity:.8;'></small></section></main><script src='https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js'></script><script src='https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js'></script><script src='firebase-config.js'></script><script src='radio.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SECeD - Radio (visor)</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#0b1f12">
+  <style>
+    /* Badge del número de radio arriba a la derecha (sin tocar styles.css) */
+    .radio-badge{
+      position:absolute; top:14px; right:14px;
+      background:#ffd60a; color:#0f1300;
+      border:1px solid #e9b400;
+      border-radius:9999px;
+      padding:6px 10px;
+      font-weight:900; font-size:12px; letter-spacing:.3px;
+      box-shadow:0 6px 16px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.35);
+      user-select:none; pointer-events:none; /* solo visual */
+    }
+    @media (max-width:560px){
+      .radio-badge{ top:10px; right:10px; padding:5px 9px; font-size:11px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" style="position:relative;">
+    <span id="radioBadge" class="radio-badge" aria-live="polite" title="Identificador de este visor">RADIO: 1</span>
+
+    <div class="brand"><img src="logo.svg" alt="SECeD" class="brand-logo" onerror="this.src='logo.png'"/></div>
+    <h1>SECeD - Radio</h1>
+
+    <div class="clock-bar">
+      <div class="clock">
+        <span id="clockTime">--:--:--</span>
+        <span class="tz" id="clockTz">Europe/Madrid</span>
+        <span class="sync" id="clockSync">sincronizando…</span>
+      </div>
+
+      <div class="controls-right" style="margin-bottom:8px;">
+        <!-- Botón TRAMO idéntico al del visor -->
+        <div class="tramo-picker">
+          <button id="btnTramo" type="button" class="secondary">TRAMO ▾</button>
+          <div id="tramoMenu" class="tramo-menu hidden" role="menu">
+            <div class="tm-section">
+              <label for="tramoInput">Escribir tramo</label>
+              <input id="tramoInput" type="text" placeholder="ej. tramo-1" />
+              <button id="tramoGo" type="button" class="primary">Ir</button>
+            </div>
+            <div class="tm-section">
+              <div class="tm-label">Recientes</div>
+              <ul id="tramoRecent"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selector RADIO (solo identifica este visor, no modifica datos) -->
+        <div class="tramo-picker">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <span style="opacity:.8;">RADIO:</span>
+            <button class="secondary" data-radio="1">1</button>
+            <button class="secondary" data-radio="2">2</button>
+            <button class="secondary" data-radio="3">3</button>
+            <button class="secondary" data-radio="4">4</button>
+            <input id="radioCustom" type="number" min="1" placeholder="otro #" style="width:90px;">
+            <button id="btnSetRadio" class="primary">Usar</button>
+            <span id="radioNow" style="font-weight:700;margin-left:6px;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mismo grid que el visor (solo lectura) -->
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
+
+  <!-- Librerías Firebase (compat) y scripts comunes existentes -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <!-- Marcar este documento como 'viewer' para que app.js lo mantenga en solo lectura -->
+  <script>document.body.classList.add('viewer');</script>
+
+  <!-- Reutilizamos la lógica de tramo y render del visor -->
+  <script src="sync.js"></script>
+  <script src="app.js"></script>
+
+  <!-- Script propio para gestionar el selector de RADIO (sin tocar nada más) -->
+  <script src="radio.js"></script>
+</body>
+</html>
