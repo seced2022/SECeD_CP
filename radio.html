@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SECeD - Radio (visor)</title>
+  <title>SECeD - Radio</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="radio-only.css">
   <meta name="theme-color" content="#0b1f12">
   <style>
     .radio-badge{
@@ -23,7 +24,7 @@
     }
   </style>
 </head>
-<body>
+<body class="radio-skin">
   <main class="app" style="position:relative;">
     <span id="radioBadge" class="radio-badge" aria-live="polite" title="Identificador de este visor">RADIO: 1</span>
 
@@ -38,6 +39,7 @@
       </div>
 
       <div class="controls-right" style="margin-bottom:8px;">
+        <!-- TRAMO -->
         <div class="tramo-picker">
           <button id="btnTramo" type="button" class="secondary">TRAMO ▾</button>
           <div id="tramoMenu" class="tramo-menu hidden" role="menu">
@@ -53,7 +55,7 @@
           </div>
         </div>
 
-        <!-- Selector RADIO: solo input + botón Confirmar -->
+        <!-- RADIO: solo input + Confirmar -->
         <div class="tramo-picker">
           <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
             <span style="opacity:.8;">RADIO</span>
@@ -64,16 +66,26 @@
       </div>
     </div>
 
+    <!-- Grid igual que visor (solo lectura) -->
     <section id="grid" class="grid" aria-live="polite"></section>
   </main>
 
+  <!-- Firebase (compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
   <script src="firebase-config.js"></script>
 
-  <script>document.body.classList.add('viewer');</script>
+  <!-- Marcar como viewer para evitar clics lógicos -->
+  <script>
+    window.VIEWER = true;
+    document.body.classList.add('viewer');
+  </script>
+
+  <!-- Reutiliza la lógica común -->
   <script src="sync.js"></script>
   <script src="app.js"></script>
+
+  <!-- Lógica del selector de radio + badge -->
   <script src="radio.js"></script>
 </body>
 </html>

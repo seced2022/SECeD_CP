@@ -1,0 +1,20 @@
+
+/* Skin específica para RADIO: tarjetas blancas y sin franjas de tiempo */
+.radio-skin .card,
+.radio-skin .card.selected,
+.radio-skin .card.abandon {
+  background: #ffffff !important;
+  color: #111111 !important;
+  border-color: #dddddd !important;
+  cursor: default !important;
+}
+/* Opcional: si no quieres ver la chapita R, comenta la siguiente línea */
+/* .radio-skin .badge-r { display:none !important; } */
+
+/* Ocultar por completo las franjas S / LL / A debajo de cada tarjeta */
+.radio-skin .time-stack { display: none !important; }
+
+/* Evitar menús y clicks en radio (por si no tiene .viewer) */
+.radio-skin .menu,
+.radio-skin .menu-btn { display: none !important; }
+.radio-skin .card * { pointer-events: none !important; }
